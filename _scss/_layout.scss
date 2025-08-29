@@ -1,0 +1,40 @@
+@charset "UTF-8";
+@import "mixin";
+
+html, body{
+    @include font(rem(14), 400);
+}
+
+body{
+    padding: rem(50);
+}
+
+.sr-only{
+    position: absolute;
+    width: rem(1);
+    height: rem(1);
+    padding: 0;
+    margin: rem(-1);
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.text-h1{
+    @include font(rem(28), 700);
+    margin-bottom: rem(40);
+}
+
+.text-h2{
+    @include font(rem(20), 700);
+    margin-bottom: rem(15);
+
+    &:not(:first-of-type){
+        margin-top: rem(60);
+    }
+}
+
+.text-h3{
+    @include font(rem(16), 700);
+    margin-bottom: rem(10);
+}

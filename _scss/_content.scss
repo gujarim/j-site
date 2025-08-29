@@ -1,0 +1,58 @@
+@charset "UTF-8";
+@import "mixin";
+
+//탭
+.tab-wrap{
+    [role=tablist]{
+        @include flex(flex, flex-start, center);
+        gap: 0 rem(10);
+    }
+    .panels{
+        margin-top: rem(20);
+        >div:not(.on){
+            display: none;
+        }
+    }
+}
+
+//테이블
+table{
+    &:not(:last-child){
+        margin-bottom: rem(20);
+    }
+}
+
+
+//입력폼
+.input-text{
+    border: rem(1) solid var(--line-base);
+    height: rem(36);
+    padding: 0 10px;
+}
+
+.input-wrap{
+    &:not(:last-of-type){
+        margin-bottom: rem(30);
+    }
+
+    fieldset{
+        legend{
+            margin-bottom: rem(10);
+        }
+
+        &>div{
+            margin-bottom:rem(10);
+        }
+
+        label{
+            display: block;
+            margin-bottom: rem(8);
+        }
+
+        &:not(:last-of-type){
+            margin-bottom: rem(30);
+        }
+    }
+
+    
+}

@@ -49,11 +49,11 @@ function loadCommonJSSafe(files) {
 
 // 페이지 로드 후 실행
 document.addEventListener("DOMContentLoaded", () => {
-    includeHeadSafe("/layout/css.html");
+    includeHeadSafe("layout/css.html");
 
-    includeHTMLSafe("header", "/layout/header.html");
-    includeHTMLSafe("nav", "/layout/nav.html");
-    includeHTMLSafe("footer", "/layout/footer.html");
+    includeHTMLSafe("header", "layout/header.html");
+    includeHTMLSafe("nav", "layout/nav.html");
+    includeHTMLSafe("footer", "layout/footer.html");
 
-    loadCommonJSSafe(["/js/ui-content.js"]);
+    loadCommonJSSafe(["js/ui-content.js"]);
 });

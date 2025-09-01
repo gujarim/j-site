@@ -3,10 +3,41 @@
 
 html, body{
     @include font(rem(14), 400);
+    height: 100%;
 }
 
-body{
-    padding: rem(50);
+.wrap{
+    @include flex(grid);
+    grid-template-columns: rem(120) 1fr;
+    grid-template-rows: rem(80) 1fr rem(50);
+
+    header{
+        @include flex(flex, space-between, center);
+        grid-column: 2 / 4;
+        padding: 0 rem(20);
+
+        .uniq{
+            @include flex(flex,flex-start, center);
+            gap: 0 rem(10);
+        }
+    }
+
+    nav{
+        grid-column: 1 / 1;
+        grid-row: 1 / 4;
+        padding: rem(30) rem(15);
+        border-right: rem(1) solid var(--line-base);
+    }
+
+    main{
+        grid-column: 2 / 4;
+        padding: 0 rem(20);
+    }
+
+    footer{
+        grid-column: 2 / 4;
+        padding: 0 rem(20);
+    }
 }
 
 .sr-only{

@@ -165,16 +165,58 @@ ul, ol {
   --f-base: #000;
   --f-white: #fff;
   --bg-base: #F7F8F9;
-  --line-base: #B4B8BD;
+  --line-base: #e5e6e7;
 }
 
 html, body {
   font-size: 1.4rem;
   font-weight: 400;
+  height: 100%;
 }
 
-body {
-  padding: 5rem;
+.wrap {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  grid-template-rows: 8rem 1fr 5rem;
+}
+.wrap header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-column: 2/4;
+  padding: 0 2rem;
+}
+.wrap header .uniq {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0 1rem;
+}
+.wrap nav {
+  grid-column: 1/1;
+  grid-row: 1/4;
+  padding: 3rem 1.5rem;
+  border-right: 0.1rem solid var(--line-base);
+}
+.wrap main {
+  grid-column: 2/4;
+  padding: 0 2rem;
+}
+.wrap footer {
+  grid-column: 2/4;
+  padding: 0 2rem;
 }
 
 .sr-only {

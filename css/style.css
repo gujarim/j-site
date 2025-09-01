@@ -178,6 +178,7 @@ html, body {
   display: grid;
   grid-template-columns: 12rem 1fr;
   grid-template-rows: 8rem 1fr 5rem;
+  height: 100%;
 }
 .wrap header {
   display: -webkit-box;

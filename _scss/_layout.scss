@@ -10,6 +10,7 @@ html, body{
     @include flex(grid);
     grid-template-columns: rem(120) 1fr;
     grid-template-rows: rem(80) 1fr rem(50);
+    height: 100%;
 
     header{
         @include flex(flex, space-between, center);

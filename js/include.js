@@ -36,11 +36,11 @@ function loadCommonJS(files) {
 
 // 페이지 로드 후 실행
 document.addEventListener("DOMContentLoaded", () => {
-    includeHead("../layout/css.html");
+    includeHead("/layout/css.html");
 
-    includeHTML("header", "../layout/header.html");
-    includeHTML("nav", "../layout/nav.html");
-    includeHTML("footer", "../layout/footer.html");
+    includeHTML("header", "/layout/header.html");
+    includeHTML("nav", "/layout/nav.html");
+    includeHTML("footer", "/layout/footer.html");
 
-    loadCommonJS(["js/ui-content.js"]); // 여러 JS 파일 삽입
+    loadCommonJS(["/js/ui-content.js"]); // 여러 JS 파일 삽입
 });

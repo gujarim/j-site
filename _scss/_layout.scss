@@ -8,7 +8,7 @@ html, body{
 
 .wrap{
     @include flex(grid);
-    grid-template-columns: rem(120) 1fr;
+    grid-template-columns: rem(200) 1fr;
     grid-template-rows: rem(80) 1fr rem(50);
     height: 100%;
 
@@ -24,15 +24,39 @@ html, body{
     }
 
     nav{
+        @include position(fixed, 0, null, null, 0);
+        height: 100%;
         grid-column: 1 / 1;
         grid-row: 1 / 4;
         padding: rem(30) rem(15);
         border-right: rem(1) solid var(--line-base);
+        overflow-y: auto;
+        width: rem(200);
+
+        >ul{
+            >li{
+                &:not(:last-child){
+                    margin-bottom: rem(20);
+                }
+
+                >a{
+                    font-weight: 700;
+                }
+
+                &.on{
+                    >a{
+                        color: red;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
     }
 
     main{
         grid-column: 2 / 4;
         padding: 0 rem(20);
+        margin-bottom: rem(50);
     }
 
     footer{
@@ -60,10 +84,6 @@ html, body{
 .text-h2{
     @include font(rem(20), 700);
     margin-bottom: rem(15);
-
-    &:not(:first-of-type){
-        margin-top: rem(60);
-    }
 }
 
 .text-h3{

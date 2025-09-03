@@ -23,10 +23,6 @@ time, mark, audio, video, meter, progress {
           box-sizing: border-box;
 }
 
-em, address, i {
-  font-style: normal;
-}
-
 a {
   -webkit-tap-highlight-color: transparent;
   color: var(--f-base);
@@ -39,13 +35,12 @@ img {
   vertical-align: top;
 }
 
-/* Form */
 select, textarea, input, label, button {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   -webkit-tap-highlight-color: transparent;
 }
 
-select, textarea, input:not([class^=checkbox]) {
+select, textarea, input:not([type^=checkbox], [type^=radio]) {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -113,24 +108,15 @@ button {
 }
 
 caption {
-  width: 0;
-  height: 0;
-  margin: -0.1rem;
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
-  clip-path: polygon(0 0, 0 0, 0 0);
-  line-height: inherit;
-}
-
-.mb40 {
-  margin-bottom: 4rem;
-}
-
-.mb32 {
-  margin-bottom: 3.2rem;
-}
-
-.mb16 {
-  margin-bottom: 1.6rem;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .align-left {
@@ -150,8 +136,7 @@ ul, ol {
 }
 
 *:focus-visible {
-  outline: 3px solid red;
-  outline-offset: 0px;
+  outline: 0.3rem solid red;
 }
 
 /* Root */
@@ -159,13 +144,18 @@ ul, ol {
   font-size: 0.625rem;
   word-break: keep-all;
   word-wrap: break-word;
-}
-
-:root {
+  --primary: #b35555;
+  --white: #fff;
+  --true: blue;
+  --false: red;
+  --readonly: #e7f0f9;
+  --disabled: #f3f9ff;
+  --placeholderDR: #a7a7a7;
+  --checkedDis: #e0b0b0;
   --f-base: #000;
-  --f-white: #fff;
-  --bg-base: #F7F8F9;
-  --line-base: #e5e6e7;
+  --bg-base: #e5e8eb;
+  --line-base: #ccced1;
+  --line-secondary: #dfdfdf;
 }
 
 html, body {
@@ -176,7 +166,7 @@ html, body {
 
 .wrap {
   display: grid;
-  grid-template-columns: 12rem 1fr;
+  grid-template-columns: 20rem 1fr;
   grid-template-rows: 8rem 1fr 5rem;
   height: 100%;
 }
@@ -206,14 +196,31 @@ html, body {
   gap: 0 1rem;
 }
 .wrap nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
   grid-column: 1/1;
   grid-row: 1/4;
   padding: 3rem 1.5rem;
   border-right: 0.1rem solid var(--line-base);
+  overflow-y: auto;
+  width: 20rem;
+}
+.wrap nav > ul > li:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.wrap nav > ul > li > a {
+  font-weight: 700;
+}
+.wrap nav > ul > li.on > a {
+  color: red;
+  text-decoration: underline;
 }
 .wrap main {
   grid-column: 2/4;
   padding: 0 2rem;
+  margin-bottom: 5rem;
 }
 .wrap footer {
   grid-column: 2/4;
@@ -242,14 +249,42 @@ html, body {
   font-weight: 700;
   margin-bottom: 1.5rem;
 }
-.text-h2:not(:first-of-type) {
-  margin-top: 6rem;
-}
 
 .text-h3 {
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 1rem;
+}
+
+.btn {
+  padding: 0 2rem;
+  height: 3.6rem;
+  background-color: var(--bg-base);
+}
+.btn.-line {
+  background-color: var(--f-white);
+  border: 0.1rem solid var(--line-base);
+}
+.btn.-linePr {
+  background-color: var(--f-white);
+  border: 0.1rem solid var(--primary);
+  color: var(--primary);
+}
+.btn.-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+.btn.-true {
+  background-color: var(--true);
+  color: var(--white);
+}
+.btn.-false {
+  background-color: var(--false);
+  color: var(--white);
+}
+.btn.-sm {
+  padding: 0 1rem;
+  height: 2.8rem;
 }
 
 .tab-wrap [role=tablist] {
@@ -264,6 +299,9 @@ html, body {
           align-items: center;
   gap: 0 1rem;
 }
+.tab-wrap [role=tablist] li.on button {
+  color: red;
+}
 .tab-wrap .panels {
   margin-top: 2rem;
 }
@@ -271,14 +309,114 @@ html, body {
   display: none;
 }
 
-table:not(:last-child) {
+.tableStyle, .tbl-wrap2, .tbl-wrap {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  table-layout: fixed;
+  border-top: 0.1rem solid var(--line-base);
+  border-bottom: 0.1rem solid var(--line-base);
+}
+
+.tbl-wrap:not(:last-child) {
   margin-bottom: 2rem;
+}
+.tbl-wrap th {
+  padding: 1rem 1.2rem;
+  border-bottom: 0.1rem solid var(--line-base);
+  position: relative;
+}
+.tbl-wrap th:not(:last-child)::after {
+  content: "";
+  width: 0.1rem;
+  height: 2rem;
+  background-color: var(--line-base);
+  position: absolute;
+  top: 1rem;
+  right: 0;
+}
+.tbl-wrap td {
+  padding: 1rem 1.2rem;
+  border-bottom: 0.1rem solid var(--line-secondary);
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: normal;
+  white-space: nowrap;
+}
+.tbl-wrap tr:last-child td {
+  border-bottom: 0;
+}
+
+.tbl-wrap2 th[scope=row] {
+  padding: 1rem;
+  text-align: left;
+  border-right: 0.1rem solid var(--line-secondary);
+}
+.tbl-wrap2 td {
+  padding: 1rem;
+}
+.tbl-wrap2 td:not(:last-of-type) {
+  border-right: 0.1rem solid var(--line-base);
+}
+.tbl-wrap2 tr:not(:last-child) th {
+  border-bottom: 0.1rem solid var(--line-secondary);
+}
+.tbl-wrap2 tr:not(:last-child) td {
+  border-bottom: 0.1rem solid var(--line-secondary);
+}
+
+.tbl-wrap .title, .tbl-wrap2 .title {
+  text-align: left;
+  font-weight: 700;
 }
 
 .input-text {
   border: 0.1rem solid var(--line-base);
   height: 3.6rem;
-  padding: 0 10px;
+  padding: 0 1rem;
+}
+.input-text:-moz-read-only {
+  background-color: var(--readonly);
+}
+.input-text:read-only {
+  background-color: var(--readonly);
+}
+.input-text:read-only::-webkit-input-placeholder {
+  color: var(--placeholderDR);
+}
+.input-text:read-only::-moz-placeholder {
+  color: var(--placeholderDR);
+}
+.input-text:read-only:-ms-input-placeholder {
+  color: var(--placeholderDR);
+}
+.input-text:read-only::-ms-input-placeholder {
+  color: var(--placeholderDR);
+}
+.input-text:-moz-read-only::placeholder {
+  color: var(--placeholderDR);
+}
+.input-text:read-only::placeholder {
+  color: var(--placeholderDR);
+}
+.input-text:disabled {
+  background-color: var(--disabled);
+}
+.input-text:disabled::-webkit-input-placeholder {
+  color: var(--placeholderDR);
+}
+.input-text:disabled::-moz-placeholder {
+  color: var(--placeholderDR);
+}
+.input-text:disabled:-ms-input-placeholder {
+  color: var(--placeholderDR);
+}
+.input-text:disabled::-ms-input-placeholder {
+  color: var(--placeholderDR);
+}
+.input-text:disabled::placeholder {
+  color: var(--placeholderDR);
 }
 
 .input-wrap:not(:last-of-type) {
@@ -296,4 +434,95 @@ table:not(:last-child) {
 }
 .input-wrap fieldset:not(:last-of-type) {
   margin-bottom: 3rem;
+}
+
+.select-box {
+  border: 0.1rem solid var(--line-base);
+  height: 3.6rem;
+  padding: 0 1rem;
+  min-width: 16rem;
+}
+
+.checkradio, .input-radio, .input-check {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 0.1rem solid var(--line-base);
+  width: 2.4rem;
+  height: 2.4rem;
+  position: relative;
+  vertical-align: top;
+}
+
+.checkradioLabel, .check-wrap label, .radio-wrap label {
+  display: inline-block;
+  vertical-align: top;
+  line-height: 24px;
+  padding-left: 0.8rem;
+}
+.checkradioLabel:not(:last-of-type), .check-wrap label:not(:last-of-type), .radio-wrap label:not(:last-of-type) {
+  margin-right: 1.6rem;
+}
+
+.input-check::after {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  left: 0.8rem;
+  width: 0.4rem;
+  height: 0.8rem;
+  border: solid var(--line-base);
+  border-width: 0 0.2rem 0.2rem 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+.input-check:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+.input-check:checked::after {
+  border-color: var(--white);
+}
+.input-check:disabled {
+  background-color: var(--disabled);
+}
+.input-check:disabled:not(:checked)::after {
+  display: none;
+}
+.input-check:disabled:checked {
+  border-color: var(--checkedDis);
+  background-color: var(--checkedDis);
+}
+
+.input-radio {
+  border-radius: 100%;
+}
+.input-radio::after {
+  content: "";
+  border-radius: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--bg-base);
+}
+.input-radio:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+.input-radio:checked::after {
+  background-color: var(--white);
+}
+.input-radio:disabled {
+  background-color: var(--disabled);
+}
+.input-radio:disabled:not(:checked)::after {
+  display: none;
+}
+.input-radio:disabled:checked {
+  border-color: var(--checkedDis);
+  background-color: var(--checkedDis);
 }

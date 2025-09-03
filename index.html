@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>메인 페이지</title>
+    <style>
+        .box2 > div {
+            transform: scale(0.7);
+            transform-origin: center center;
+            transition: transform 0.05s linear;
+        }
+    </style>
 </head>
 <body>
     <div class="wrap main">
@@ -10,8 +17,26 @@
         <div id="nav"></div>
 
         <main>
-            <h2>메인 페이지</h2>
-            <p>여기가 메인 콘텐츠 영역입니다.</p>
+            <div class="box1">
+                <h2 class="text-h2">박스1</h2>
+                <div style="height: 300px;background-color: orange;"></div>
+            </div>
+            <div class="box2">
+                <h2 class="text-h2">박스2</h2>
+                <div style="height: 500px;background-color: yellow;"></div>
+            </div>
+            <div class="box3">
+                <h2 class="text-h2">박스3</h2>
+                <div style="height: 100px;background-color: green;"></div>
+            </div>
+            <div class="box4">
+                <h2 class="text-h2">박스4</h2>
+                <div style="height: 200px;background-color: blue;"></div>
+            </div>
+            <div class="box5">
+                <h2 class="text-h2">박스5</h2>
+                <div style="height: 300px;background-color: navy;"></div>
+            </div>
         </main>
 
         <div id="footer"></div>
@@ -20,3 +45,24 @@
     <script src="js/include.js" defer></script>
 </body>
 </html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const yellowBox = document.querySelector(".box2 > div");
+        const box2 = document.querySelector(".box2");
+
+        window.addEventListener("scroll", () => {
+            const scrollY = window.scrollY; // 현재 스크롤 값
+            const start = box2.offsetTop - window.innerHeight; // box2 나타나기 직전
+            const end = box2.offsetTop - 100; // box2에 도착했을 때
+
+            // 스크롤 진행 비율 (0 ~ 1)
+            let ratio = (scrollY - start) / (end - start);
+            ratio = Math.min(Math.max(ratio, 0), 1);
+
+            // 최소 0.5 → 최대 1
+            const scale = 0.5 + ratio * 0.5;
+            yellowBox.style.transform = `scale(${scale})`;
+        });
+    });
+</script>

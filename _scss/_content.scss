@@ -1,11 +1,55 @@
 @charset "UTF-8";
 @import "mixin";
 
+//버튼
+.btn{
+    padding: 0 rem(20);
+    height: rem(36);
+    background-color: var(--bg-base);
+
+    &.-line{
+        background-color: var(--f-white);
+        border: rem(1) solid var(--line-base);
+    }
+
+    &.-linePr{
+        background-color: var(--f-white);
+        border: rem(1) solid var(--primary);
+        color: var(--primary);
+    }
+
+    &.-primary{
+        background-color: var(--primary);
+        color: var(--white);
+    }
+
+    &.-true{
+        background-color: var(--true);
+        color: var(--white);
+    }
+
+    &.-false{
+        background-color: var(--false);
+        color: var(--white);
+    }
+
+    &.-sm{
+        padding: 0 rem(10);
+        height: rem(28);
+    }
+}
+
 //탭
 .tab-wrap{
     [role=tablist]{
         @include flex(flex, flex-start, center);
         gap: 0 rem(10);
+
+        li.on{
+            button{
+                color: red;
+            }
+        }
     }
     .panels{
         margin-top: rem(20);
@@ -15,19 +59,114 @@
     }
 }
 
+//테이블 공통스타일
+.tableStyle{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    table-layout: fixed;
+    border-top: rem(1) solid var(--line-base);
+    border-bottom: rem(1) solid var(--line-base);
+}
+
 //테이블
-table{
+.tbl-wrap{
+    @extend .tableStyle;
+
     &:not(:last-child){
         margin-bottom: rem(20);
     }
+
+    th{
+        padding: rem(10) rem(12);
+        border-bottom: rem(1) solid var(--line-base);
+        position: relative;
+
+        &:not(:last-child){
+            &::after{
+                content:'';
+                width: rem(1);
+                height: rem(20);
+                background-color: var(--line-base);
+                @include position(absolute, rem(10), 0, null, null);
+            }
+        }
+    }
+
+    td{
+        padding: rem(10) rem(12);
+        border-bottom: rem(1) solid var( --line-secondary);
+        text-align: center;
+        @include ellipsis(1);
+    }
+
+    tr{
+        &:last-child{
+            td{
+                border-bottom:0;
+            }
+        }
+    }
 }
 
+.tbl-wrap2{
+    @extend .tableStyle;
+
+    th[scope=row]{
+        padding: rem(10);
+        text-align: left;
+        border-right: rem(1) solid var(--line-secondary);
+    }
+
+    td{
+        padding: rem(10);
+
+        &:not(:last-of-type){
+            border-right: rem(1) solid var(--line-base);
+        }
+    }
+
+    tr{
+        &:not(:last-child){
+            th{
+                border-bottom: rem(1) solid var( --line-secondary);
+            }
+
+            td{
+                border-bottom: rem(1) solid var( --line-secondary);
+            }
+        }
+    }
+}
+
+.tbl-wrap, .tbl-wrap2{
+    .title{
+        text-align: left;
+        font-weight: 700;
+    }
+}
 
 //입력폼
 .input-text{
     border: rem(1) solid var(--line-base);
     height: rem(36);
-    padding: 0 10px;
+    padding: 0 rem(10);
+
+    &:read-only{
+        background-color: var(--readonly);
+
+        &::placeholder{
+            color: var(--placeholderDR);
+        }
+    }
+
+    &:disabled{
+        background-color: var(--disabled);
+
+        &::placeholder{
+            color: var(--placeholderDR);
+        }
+    }
 }
 
 .input-wrap{
@@ -55,4 +194,114 @@ table{
     }
 
     
+}
+
+//셀렉트박스
+.select-box{
+    border: rem(1) solid var(--line-base);
+    height: rem(36);
+    padding: 0 rem(10);
+    min-width: rem(160);
+}
+
+//체크, 라디오 공통 스타일
+.checkradio{
+    appearance: none;
+    border: rem(1) solid var(--line-base);
+    width: rem(24);
+    height: rem(24);
+    position: relative;
+    vertical-align: top;
+}
+
+.checkradioLabel{
+    display: inline-block;
+    vertical-align: top;
+    line-height: 24px;
+    padding-left: rem(8);
+
+    &:not(:last-of-type){
+        margin-right: rem(16);
+    }
+}
+
+//체크박스
+.input-check{
+    @extend .checkradio;
+
+    &::after{
+        content: '';
+        @include position(absolute, rem(5), null, null, rem(8));
+        width: rem(4);
+        height: rem(8);
+        border: solid var(--line-base);
+        border-width: 0 rem(2) rem(2) 0;
+        transform: rotate(45deg);
+    }
+    
+    &:checked{
+        border-color: var(--primary);
+        background-color: var(--primary);
+
+        &::after{
+            border-color: var(--white);
+        }
+    }
+
+    &:disabled{
+        background-color: var(--disabled);
+
+        &:not(:checked)::after{
+            display: none;
+        }
+
+        &:checked{
+            border-color: var(--checkedDis);
+            background-color: var(--checkedDis);
+        }
+    }
+}
+
+//라디오
+.input-radio{
+    @include rounded(100%);
+    @extend .checkradio;
+
+    &::after{
+        content:'';
+        @include rounded(100%);
+        @include position(absolute, 50%, null, null, 50%);
+        transform: translate(-50%, -50%);
+        width: rem(10);
+        height: rem(10);
+        background-color: var(--bg-base);
+    }
+
+    &:checked{
+        border-color: var(--primary);
+        background-color: var(--primary);
+
+        &::after{
+            background-color: var(--white);
+        }
+    }
+
+    &:disabled{
+        background-color: var(--disabled);
+
+        &:not(:checked)::after{
+            display: none;
+        }
+
+        &:checked{
+            border-color: var(--checkedDis);
+            background-color: var(--checkedDis);
+        }
+    }
+}
+
+.check-wrap, .radio-wrap{
+    label{
+        @extend .checkradioLabel;
+    }
 }
